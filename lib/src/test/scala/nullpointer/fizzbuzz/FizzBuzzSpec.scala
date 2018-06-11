@@ -1,6 +1,6 @@
 package nullpointer.fizzbuzz
 
-import nullpointer.fizzbuzz.FizzBuzz.{BuzzToken, FizzBuzzToken, FizzToken}
+import nullpointer.fizzbuzz.FizzBuzz.{BuzzToken, FizzBuzzToken, FizzToken, NumberToken}
 import org.scalatest.FlatSpec
 
 class FizzBuzzSpec extends FlatSpec {
@@ -15,32 +15,36 @@ class FizzBuzzSpec extends FlatSpec {
 
   it should "return FizzToken on number divisible by 3" in {
     FIZZ_NUMBERS.foreach { i =>
-      val tokenOption = fizzBuzz.getToken(i)
-      assert(tokenOption.isDefined)
-      assert(tokenOption.get.isInstanceOf[FizzToken])
+      val token = fizzBuzz.getToken(i)
+      assert(token.isInstanceOf[FizzToken])
     }
   }
 
   it should "return BuzzToken on number divisible by 5" in {
     BUZZ_NUMBERS.foreach { i =>
-      val tokenOption = fizzBuzz.getToken(i)
-      assert(tokenOption.isDefined)
-      assert(tokenOption.get.isInstanceOf[BuzzToken])
+      val token = fizzBuzz.getToken(i)
+      assert(token.isInstanceOf[BuzzToken])
     }
   }
 
   it should "return FizzBuzzToken on number divisible by 3 and by 5" in {
     FIZZBUZZ_NUMBERS.foreach { i =>
-      val tokenOption = fizzBuzz.getToken(i)
-      assert(tokenOption.isDefined)
-      assert(tokenOption.get.isInstanceOf[FizzBuzzToken])
+      val token = fizzBuzz.getToken(i)
+      assert(token.isInstanceOf[FizzBuzzToken])
     }
   }
 
-  it should "return None on number not divisible by 3 and by 5" in {
+  it should "return NumberToken on number not divisible by 3 and by 5" in {
     OTHER_NUMBERS.foreach { i =>
-      val tokenOption = fizzBuzz.getToken(i)
-      assert(tokenOption.isEmpty)
+      val token = fizzBuzz.getToken(i)
+      assert(token.isInstanceOf[NumberToken])
+    }
+  }
+
+  it should "return NumberToken with correct value on number not divisible by 3 and by 5" in {
+    OTHER_NUMBERS.foreach { i =>
+      val token = fizzBuzz.getToken(i).asInstanceOf[NumberToken]
+      assert(token.value === i)
     }
   }
 }
