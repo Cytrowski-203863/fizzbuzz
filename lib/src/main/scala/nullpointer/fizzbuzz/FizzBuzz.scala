@@ -11,13 +11,22 @@ object FizzBuzz {
 }
 
 class FizzBuzz {
-  def getToken(number: Int): Token =
-    if (number % 3 == 0 && number % 5 == 0)
+  def getToken(number: Int): Token = {
+    val divisibleBy3 = isDivisibleBy3(number)
+    val divisibleBy5 = isDivisibleBy5(number)
+    if (divisibleBy3 && divisibleBy5)
       FizzBuzzToken()
-    else if (number % 3 == 0)
+    else if (divisibleBy3)
       FizzToken()
-    else if (number % 5 == 0)
+    else if (divisibleBy5)
       BuzzToken()
     else
       NumberToken(number)
+  }
+
+  private def isDivisibleBy3(number: Int): Boolean =
+    number % 3 == 0
+
+  private def isDivisibleBy5(number: Int): Boolean =
+    number % 5 == 0
 }
