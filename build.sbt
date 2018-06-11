@@ -12,3 +12,6 @@ lazy val testDependencies = Seq(
 
 lazy val lib = (project in file("lib"))
   .settings(libraryDependencies ++= testDependencies)
+
+lazy val app = (project in file("app"))
+  .dependsOn(lib)
